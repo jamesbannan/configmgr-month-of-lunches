@@ -20,7 +20,7 @@ If ($OSCaption -like "Microsoft Windows 10*")
 
 # Check free space on C: - Minimum for the Hydration Kit is 100 GB
 $NeededFreeSpace = "107374182400"
-$disk = Get-wmiObject Win32_LogicalDisk -computername . | where-object {$_.DeviceID -eq "C:"} 
+$disk = Get-wmiObject Win32_LogicalDisk -computername . | where-object {$_.DeviceID -eq "C:"}
 
 [float]$freespace = $disk.FreeSpace;
 $freeSpaceGB = [Math]::Round($freespace / 1073741824);
@@ -36,7 +36,7 @@ Break
 # Validation OK, create Hydration Deployment Share
 $MDTServer = (get-wmiobject win32_computersystem).Name
 
-Add-PSSnapIn Microsoft.BDD.PSSnapIn -ErrorAction SilentlyContinue 
+Add-PSSnapIn Microsoft.BDD.PSSnapIn -ErrorAction SilentlyContinue
 md C:\HydrationCM2012R2SP1\DS
 new-PSDrive -Name "DS001" -PSProvider "MDTProvider" -Root "C:\HydrationCM2012R2SP1\DS" -Description "Hydration CM2012 R2" -NetworkPath "\\$MDTServer\HydrationSC2012R2$" -Verbose | add-MDTPersistentDrive -Verbose
 
@@ -45,8 +45,8 @@ new-item -path "DS001:\Media" -enable "True" -Name "MEDIA001" -Comments "" -Root
 new-PSDrive -Name "MEDIA001" -PSProvider "MDTProvider" -Root "C:\HydrationCM2012R2SP1\ISO\Content\Deploy" -Description "Hydration CM2012 R2 SP1 Media" -Force -Verbose
 
 # Copy sample files to Hydration Deployment Share
-Copy-Item -Path "C:\HydrationCM2012R2SP1\Source\Hydration\Applications" -Destination "C:\HydrationCM2012R2SP1\DS" -Recurse -Verbose -Force
-Copy-Item -Path "C:\HydrationCM2012R2SP1\Source\Hydration\Control" -Destination "C:\HydrationCM2012R2SP1\DS" -Recurse -Verbose -Force
-Copy-Item -Path "C:\HydrationCM2012R2SP1\Source\Hydration\Operating Systems" -Destination "C:\HydrationCM2012R2SP1\DS" -Recurse -Verbose -Force
-Copy-Item -Path "C:\HydrationCM2012R2SP1\Source\Hydration\Scripts" -Destination "C:\HydrationCM2012R2SP1\DS" -Recurse -Verbose -Force
-Copy-Item -Path "C:\HydrationCM2012R2SP1\Source\Media\Control" -Destination "C:\HydrationCM2012R2SP1\ISO\Content\Deploy" -Recurse -Verbose -Force
+Copy-Item -Path ".\Hydration\Applications" -Destination "C:\HydrationCM2012R2SP1\DS" -Recurse -Verbose -Force
+Copy-Item -Path ".\Hydration\Control" -Destination "C:\HydrationCM2012R2SP1\DS" -Recurse -Verbose -Force
+Copy-Item -Path ".\Hydration\Operating Systems" -Destination "C:\HydrationCM2012R2SP1\DS" -Recurse -Verbose -Force
+Copy-Item -Path ".\Hydration\Scripts" -Destination "C:\HydrationCM2012R2SP1\DS" -Recurse -Verbose -Force
+Copy-Item -Path ".\Media\Control" -Destination "C:\HydrationCM2012R2SP1\ISO\Content\Deploy" -Recurse -Verbose -Force
