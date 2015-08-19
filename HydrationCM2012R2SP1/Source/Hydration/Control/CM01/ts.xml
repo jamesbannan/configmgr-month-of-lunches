@@ -754,7 +754,7 @@
   </group>
   <group expand="true" name="Install ADK" description="" disable="false" continueOnError="false">
     <action />
-    <step type="BDD_InstallApplication" name="Install - Windows ADK 8.1" description="" disable="false" continueOnError="false" runIn="WinPEandFullOS" successCodeList="0 3010">
+    <step type="BDD_InstallApplication" name="Install - Windows 10 ADK" description="" disable="false" continueOnError="false" runIn="WinPEandFullOS" successCodeList="0 3010">
       <defaultVarList>
         <variable name="ApplicationGUID" property="ApplicationGUID">{a8ad07ee-b206-497e-8c26-fe0a0d407f49}</variable>
         <variable name="ApplicationSuccessCodes" property="ApplicationSuccessCodes">0 3010</variable>
@@ -818,48 +818,7 @@
       </defaultVarList>
       <action>cscript.exe "%SCRIPTROOT%\ZTIApplications.wsf"</action>
     </step>
-    <step type="SMS_TaskSequence_RebootAction" name="Restart computer" description="" disable="false" continueOnError="false" runIn="WinPEandFullOS" successCodeList="0 3010">
-      <defaultVarList>
-        <variable name="SMSRebootMessage" property="Message"></variable>
-        <variable name="SMSRebootTimeout" property="MessageTimeout">60</variable>
-        <variable name="SMSRebootTarget" property="Target"></variable>
-      </defaultVarList>
-      <action>smsboot.exe /target:WinPE</action>
-    </step>
     <condition />
-  </group>
-  <group expand="true" name="Install Windows 10 ADK" description="" disable="false" continueOnError="false">
-    <action />
-    <step type="BDD_InstallApplication" name="Uninstall - Windows 8.1 ADK" description="" disable="false" continueOnError="false" runIn="WinPEandFullOS" successCodeList="0 3010">
-      <defaultVarList>
-        <variable name="ApplicationGUID" property="ApplicationGUID">{a7ee186f-0ebe-41fb-aa72-7532e0b219fd}</variable>
-        <variable name="ApplicationSuccessCodes" property="ApplicationSuccessCodes">0 3010</variable>
-      </defaultVarList>
-      <action>cscript.exe "%SCRIPTROOT%\ZTIApplications.wsf"</action>
-    </step>
-    <step type="SMS_TaskSequence_RebootAction" name="Restart computer" description="" disable="false" continueOnError="false" runIn="WinPEandFullOS" successCodeList="0 3010">
-      <defaultVarList>
-        <variable name="SMSRebootMessage" property="Message"></variable>
-        <variable name="SMSRebootTimeout" property="MessageTimeout">60</variable>
-        <variable name="SMSRebootTarget" property="Target"></variable>
-      </defaultVarList>
-      <action>smsboot.exe /target:WinPE</action>
-    </step>
-    <step type="BDD_InstallApplication" name="Install - Windows 10 ADK" description="" disable="false" continueOnError="false" runIn="WinPEandFullOS" successCodeList="0 3010">
-      <defaultVarList>
-        <variable name="ApplicationGUID" property="ApplicationGUID">{a8ad07ee-b206-497e-8c26-fe0a0d407f49}</variable>
-        <variable name="ApplicationSuccessCodes" property="ApplicationSuccessCodes">0 3010</variable>
-      </defaultVarList>
-      <action>cscript.exe "%SCRIPTROOT%\ZTIApplications.wsf"</action>
-    </step>
-    <step type="SMS_TaskSequence_RebootAction" name="Restart computer" description="" disable="false" continueOnError="false" runIn="WinPEandFullOS" successCodeList="0 3010">
-      <defaultVarList>
-        <variable name="SMSRebootMessage" property="Message"></variable>
-        <variable name="SMSRebootTimeout" property="MessageTimeout">60</variable>
-        <variable name="SMSRebootTarget" property="Target"></variable>
-      </defaultVarList>
-      <action>smsboot.exe /target:WinPE</action>
-    </step>
   </group>
   <group expand="true" name="Final Cleanup" description="" disable="false" continueOnError="false">
     <action />
