@@ -1,7 +1,7 @@
 # configmgr-month-of-lunches
 
 Learn ConfigMgr in a Month of Lunches
-==============
+--------------
 
 Hydration Kit for ConfigMgr 2012 R2 SP1 with SQL Server 2014 SP1
 --------------
