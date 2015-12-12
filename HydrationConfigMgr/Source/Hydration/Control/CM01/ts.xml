@@ -733,7 +733,7 @@
   </group>
   <group expand="true" name="Install Web Server (IIS)" description="" disable="false" continueOnError="false">
     <action />
-    <step type="BDD_InstallRoles" name="Install ConfigMgr 2012 PreReqs" description="Install BITS, Remote Differential Compression, Web Server, and additional NET features" disable="false" continueOnError="false" runIn="WinPEandFullOS" successCodeList="0 3010">
+    <step type="BDD_InstallRoles" name="Install ConfigMgr PreReqs" description="Install BITS, Remote Differential Compression, Web Server, and additional NET features" disable="false" continueOnError="false" runIn="WinPEandFullOS" successCodeList="0 3010">
       <defaultVarList>
         <variable name="OSRoles" property="OSRoles">Web-Server</variable>
         <variable name="OSRoleServices" property="OSRoleServices">FS-FileServer,Web-Mgmt-Tools,Web-Mgmt-Console,Web-Mgmt-Compat,Web-Metabase,Web-WMI,Web-WebServer,Web-Common-Http,Web-Default-Doc,Web-Dir-Browsing,Web-Http-Errors,Web-Static-Content,Web-Http-Redirect,Web-Health,Web-Http-Logging,Web-Log-Libraries,Web-Request-Monitor,Web-Http-Tracing,Web-Performance,Web-Stat-Compression,Web-Dyn-Compression,Web-Security,Web-Filtering,Web-Windows-Auth,Web-App-Dev,Web-Net-Ext,Web-Net-Ext45,Web-Asp-Net,Web-Asp-Net45,Web-ISAPI-Ext,Web-ISAPI-Filter</variable>
@@ -794,9 +794,9 @@
       <action>smsboot.exe /target:WinPE</action>
     </step>
   </group>
-  <group expand="true" name="Install ConfigMgr 2012 R2 SP1" description="" disable="false" continueOnError="false">
+  <group expand="true" name="Install ConfigMgr 2012" description="" disable="false" continueOnError="false">
     <action />
-    <step type="BDD_InstallApplication" name="Configure - Extend AD for ConfigMgr 2012" description="" disable="false" continueOnError="false" runIn="WinPEandFullOS" successCodeList="0 3010">
+    <step type="BDD_InstallApplication" name="Configure - Extend AD for ConfigMgr" description="" disable="false" continueOnError="false" runIn="WinPEandFullOS" successCodeList="0 3010">
       <defaultVarList>
         <variable name="ApplicationGUID" property="ApplicationGUID">{c3dc1db0-c4fd-40fc-a0f0-e26254378004}</variable>
         <variable name="ApplicationSuccessCodes" property="ApplicationSuccessCodes">0 3010</variable>
@@ -804,14 +804,14 @@
       <action>cscript.exe "%SCRIPTROOT%\ZTIApplications.wsf"</action>
       <condition />
     </step>
-    <step type="BDD_InstallApplication" name="Configure - Set AD permissions for ConfigMgr 2012" description="" disable="false" continueOnError="false" runIn="WinPEandFullOS" successCodeList="0 3010">
+    <step type="BDD_InstallApplication" name="Configure - Set AD permissions for ConfigMgr" description="" disable="false" continueOnError="false" runIn="WinPEandFullOS" successCodeList="0 3010">
       <defaultVarList>
         <variable name="ApplicationGUID" property="ApplicationGUID">{0662217c-5eaa-49d8-a93f-e9a1a84ecef4}</variable>
         <variable name="ApplicationSuccessCodes" property="ApplicationSuccessCodes">0 3010</variable>
       </defaultVarList>
       <action>cscript.exe "%SCRIPTROOT%\ZTIApplications.wsf"</action>
     </step>
-    <step type="BDD_InstallApplication" name="Install - ConfigMgr 2012 R2 SP1" description="" disable="false" continueOnError="false" runIn="WinPEandFullOS" successCodeList="0 3010">
+    <step type="BDD_InstallApplication" name="Install - ConfigMgr" description="" disable="false" continueOnError="false" runIn="WinPEandFullOS" successCodeList="0 3010">
       <defaultVarList>
         <variable name="ApplicationGUID" property="ApplicationGUID">{002ee88f-e4d3-49d9-bda1-5308bafd996f}</variable>
         <variable name="ApplicationSuccessCodes" property="ApplicationSuccessCodes">0 3010</variable>
