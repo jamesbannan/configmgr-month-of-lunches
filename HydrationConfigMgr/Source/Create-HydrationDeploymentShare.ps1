@@ -1,8 +1,7 @@
 # Check for elevation
-If (-NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole(`
-    [Security.Principal.WindowsBuiltInRole] 'Administrator'))
+If (-NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] 'Administrator'))
 {
-    Write-Warning "Oupps, you need to run this script from an elevated PowerShell prompt!`nPlease start the PowerShell prompt as an Administrator and re-run the script."
+    Write-Warning "You need to run this script from an elevated PowerShell prompt.`nPlease start the PowerShell prompt as an Administrator and re-run the script."
 	Write-Warning 'Aborting script...'
     Break
 }
@@ -26,16 +25,18 @@ Break
 $MDTServer = (get-wmiobject win32_computersystem).Name
 
 Add-PSSnapIn Microsoft.BDD.PSSnapIn -ErrorAction SilentlyContinue
-md C:\HydrationCM2012R2SP1\DS
-new-PSDrive -Name 'DS001' -PSProvider 'MDTProvider' -Root 'C:\HydrationCM2012R2SP1\DS' -Description 'Hydration CM2012 R2' -NetworkPath "\\$MDTServer\HydrationSC2012R2$" -Verbose | add-MDTPersistentDrive -Verbose
+$DSRoot = 'C:\HydrationConfigMgr\DS'
+$DSISORoot = 'C:\HydrationConfigMgr\ISO'
+mkdir $DSRoot
+New-PSDrive -Name 'DS001' -PSProvider 'MDTProvider' -Root $DSRoot -Description 'MoL ConfigMgr' -NetworkPath "\\$MDTServer\MoLConfigMgr$" -Verbose | Add-MDTPersistentDrive -Verbose
 
-md C:\HydrationCM2012R2SP1\ISO\Content\Deploy
-new-item -path 'DS001:\Media' -enable 'True' -Name 'MEDIA001' -Comments '' -Root 'C:\HydrationCM2012R2SP1\ISO' -SelectionProfile 'Everything' -SupportX86 'False' -SupportX64 'True' -GenerateISO 'True' -ISOName 'HydrationCM2012R2SP1.iso' -Verbose
-new-PSDrive -Name 'MEDIA001' -PSProvider 'MDTProvider' -Root 'C:\HydrationCM2012R2SP1\ISO\Content\Deploy' -Description 'Hydration CM2012 R2 SP1 Media' -Force -Verbose
+mkdir $DSISORoot\Content\Deploy
+new-item -path 'DS001:\Media' -enable 'True' -Name 'MEDIA001' -Comments '' -Root $DSISORoot -SelectionProfile 'Everything' -SupportX86 'False' -SupportX64 'True' -GenerateISO 'True' -ISOName 'MoLConfigMgr.iso' -Verbose
+new-PSDrive -Name 'MEDIA001' -PSProvider 'MDTProvider' -Root $DSISORoot\Content\Deploy -Description 'MoL ConfigMgr Media' -Force -Verbose
 
 # Copy sample files to Hydration Deployment Share
-Copy-Item -Path '.\Hydration\Applications' -Destination 'C:\HydrationCM2012R2SP1\DS' -Recurse -Verbose -Force
-Copy-Item -Path '.\Hydration\Control' -Destination 'C:\HydrationCM2012R2SP1\DS' -Recurse -Verbose -Force
-Copy-Item -Path '.\Hydration\Operating Systems' -Destination 'C:\HydrationCM2012R2SP1\DS' -Recurse -Verbose -Force
-Copy-Item -Path '.\Hydration\Scripts' -Destination 'C:\HydrationCM2012R2SP1\DS' -Recurse -Verbose -Force
-Copy-Item -Path '.\Media\Control' -Destination 'C:\HydrationCM2012R2SP1\ISO\Content\Deploy' -Recurse -Verbose -Force
+Copy-Item -Path '.\Hydration\Applications' -Destination $DSRoot -Recurse -Verbose -Force
+Copy-Item -Path '.\Hydration\Control' -Destination $DSRoot -Recurse -Verbose -Force
+Copy-Item -Path '.\Hydration\Operating Systems' -Destination $DSRoot -Recurse -Verbose -Force
+Copy-Item -Path '.\Hydration\Scripts' -Destination $DSRoot -Recurse -Verbose -Force
+Copy-Item -Path '.\Media\Control' -Destination $DSISORoot\Content\Deploy -Recurse -Verbose -Force
