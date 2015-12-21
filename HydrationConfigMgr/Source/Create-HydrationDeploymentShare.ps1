@@ -1,3 +1,9 @@
+Param(
+    [string]$drive = 'C'
+)
+
+$driveLetter = $drive + ':'
+
 # Check for elevation
 If (-NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] 'Administrator'))
 {
@@ -8,7 +14,7 @@ If (-NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
 
 # Check free space on C: - Minimum for the Hydration Kit is 100 GB
 $NeededFreeSpace = '107374182400'
-$disk = Get-wmiObject Win32_LogicalDisk -computername . | where-object {$_.DeviceID -eq 'C:'}
+$disk = Get-wmiObject Win32_LogicalDisk -computername . | where-object {$_.DeviceID -eq $driveLetter}
 
 [float]$freespace = $disk.FreeSpace;
 $freeSpaceGB = [Math]::Round($freespace / 1073741824);
@@ -16,7 +22,7 @@ $freeSpaceGB = [Math]::Round($freespace / 1073741824);
 if($disk.FreeSpace -lt $NeededFreeSpace)
 {
 Write-Warning 'Oupps, you need at least 100 GB of free disk space'
-Write-Warning "Available free space on C: is $freeSpaceGB GB"
+Write-Warning "Available free space on $driveLetter is $freeSpaceGB GB"
 Write-Warning 'Aborting script...'
 Break
 }
