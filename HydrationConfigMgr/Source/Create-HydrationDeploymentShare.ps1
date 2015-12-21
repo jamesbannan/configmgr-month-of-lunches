@@ -31,8 +31,8 @@ Break
 $MDTServer = (get-wmiobject win32_computersystem).Name
 
 Add-PSSnapIn Microsoft.BDD.PSSnapIn -ErrorAction SilentlyContinue
-$DSRoot = 'C:\HydrationConfigMgr\DS'
-$DSISORoot = 'C:\HydrationConfigMgr\ISO'
+$DSRoot = $driveLetter + '\HydrationConfigMgr\DS'
+$DSISORoot = $driveLetter + '\HydrationConfigMgr\ISO'
 mkdir $DSRoot
 New-PSDrive -Name 'DS001' -PSProvider 'MDTProvider' -Root $DSRoot -Description 'MoL ConfigMgr' -NetworkPath "\\$MDTServer\MoLConfigMgr$" -Verbose | Add-MDTPersistentDrive -Verbose
 
