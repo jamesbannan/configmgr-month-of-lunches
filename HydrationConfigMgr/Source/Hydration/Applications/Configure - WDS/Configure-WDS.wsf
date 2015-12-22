@@ -53,7 +53,7 @@ Function ZTIProcess()
 	Err.clear
 	
 	' Initialize the WDS server
-	iRetVal = oUtility.RunWithHeartbeat("cmd.exe /c wdsutil /initialize-server /server:" & oEnvironment.item("OSDComputerName") & " /reminst:D:\RemoteInstall")
+	iRetVal = oUtility.RunWithHeartbeat("cmd.exe /c wdsutil /initialize-server /server:" & oEnvironment.item("OSDComputerName") & " /reminst:E:\RemoteInstall")
 	If iRetVal <> 0 then
 		oLogging.CreateEntry "Configure WDS: Error - Failed to initialize WDS server:  " & Err.Description & " (" & Err.Number & ")", LogTypeError
 		ZTIProcess = Failure
