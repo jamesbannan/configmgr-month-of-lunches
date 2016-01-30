@@ -2,7 +2,7 @@
 
 $CMSiteCode = 'PS1'
 $CMSiteServer = 'CM01.mol.sccmlab.net'
-$CMNameSpace = "rootSMSsite_$CMSiteCode"
+$CMNameSpace = "root\SMS\site_$CMSiteCode"
 
 # 1.0 Create array of names for Folders
 
