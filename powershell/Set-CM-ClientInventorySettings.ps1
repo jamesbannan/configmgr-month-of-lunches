@@ -2,7 +2,7 @@
 
 $CMSiteCode = 'PS1'
 $CMSiteServer = 'CM01.mol.sccmlab.net'
-$CMNameSpace = "rootSMSsite_$CMSiteCode"
+$CMNameSpace = "root\SMS\site_$CMSiteCode"
 $CustomSettingsName = 'Desktop Software Inventory Settings'
 
 # 1.0 Create new Client Settings
