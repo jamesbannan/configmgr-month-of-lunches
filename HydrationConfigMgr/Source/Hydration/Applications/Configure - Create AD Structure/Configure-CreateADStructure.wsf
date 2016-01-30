@@ -261,6 +261,23 @@ Function ZTIProcess()
 	oUser.SetPassword "P@ssw0rd"
 	oUser.Put "userAccountControl", 66048
 	oUser.SetInfo
+    
+    ' Create Group in the Security Group OU
+    oLogging.CreateEntry "Create Group in the Security Group OU", LogTypeInfo	
+	
+	sOUPath = "LDAP://ou=Security Groups,ou=MoL," & oRootDSE.Get("defaultNamingContext")
+    
+    Set oOU = GetObject(sOUPath)
+	Set oGroup = oOU.Create("Group", "cn=ConfigMgr Lab Users")
+    oGroup.Put "groupType", "ADS_GROUP_TYPE_DOMAIN_LOCAL_GROUP"
+    oGroup.Put "member", "MOL\Mike"
+    oGroup.Put "member", "MOL\Johan"
+    oGroup.Put "member", "MOL\Frank"
+    oGroup.Put "member", "MOL\Bob"
+    oGroup.Put "member", "MOL\Michael"
+    oGroup.Put "member", "MOL\Mathilda"
+    oGroup.Put "member", "MOL\Marcus"
+    oGroup.SetInfo
 
 End Function
 
