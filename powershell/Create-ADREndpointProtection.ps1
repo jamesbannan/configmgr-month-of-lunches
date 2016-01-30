@@ -1,13 +1,13 @@
 # Define Configuration Manager variables
 $coll = Get-CMDeviceCollection -Name 'All Desktop and Server Clients'
-$package = Get-CMSoftwareUpdateDeploymentPackage -Name 'Endpoint Protection Definitions'
+$package = Get-CMSoftwareUpdateDeploymentPackage -Name 'Antimalware Definitions'
 
 # 1.0 Create CM Schedule for ADR
 $Schedule = New-CMSchedule -RecurInterval Days -RecurCount 1
 
-# 1.1 Create ADR for Endpoint Protection Definition Updates
+# 1.1 Create ADR for EAntimalware Definition Updates
 New-CMSoftwareUpdateAutoDeploymentRule `
-    -Name 'ADR - Endpoint Protection Definitions' `
+    -Name 'ADR - Antimalware Definitions' `
     -CollectionName $coll.Name `
     -AddToExistingSoftwareUpdateGroup $true `
     -EnabledAfterCreate $True `
@@ -15,7 +15,7 @@ New-CMSoftwareUpdateAutoDeploymentRule `
     -DeployWithoutLicense $True `
     -SendWakeUpPacket $False `
     -DateReleasedOrRevised Last1day `
-    -Product 'Forefront Endpoint Protection 2010' `
+    -Product 'Forefront Endpoint Protection 2010,Windows Defender' `
     -Superseded $False `
     -UpdateClassification 'Definition Updates' `
     -RunType RunTheRuleOnSchedule `
